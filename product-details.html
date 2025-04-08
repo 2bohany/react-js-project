@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details - ElectroStore</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <!-- Navbar -->
+  <!-- <nav class="bg-white shadow mb-6">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-2xl font-bold text-gray-800 hover:text-blue-600">ElectroStore</a>
+      <div class="space-x-6 hidden md:flex">
+        <a href="index.html" class="text-gray-700 hover:text-blue-600">Home</a>
+        <a href="products.html" class="text-blue-600 font-semibold">Products</a>
+        <a href="wishlist.html" class="text-gray-700 hover:text-blue-600">Wishlist</a>
+        <a href="cart.html" class="text-gray-700 hover:text-blue-600">Cart</a>
+      </div>
+    </div>
+  </nav> -->
+<!-- Updated Navbar with Wishlist -->
+<nav class="bg-gray-800 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="index.html" class="text-white text-2xl font-semibold">E-Shop</a>
+      <ul class="flex space-x-4 text-white">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="wishlist.html">Wishlist</a></li> <!-- Wishlist Page Link -->
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  
+  <!-- Product Details -->
+  <div class="container mx-auto px-4">
+    <div id="productDetail" class="bg-white p-6 rounded shadow flex flex-col md:flex-row gap-6">
+      <!-- JS will inject product detail -->
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-6 text-center mt-12">
+    <div class="container mx-auto px-4">
+      <p>&copy; 2025 ElectroStore. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const productList = [
+      {
+        id: 'p1',
+        name: 'Wireless Headphones',
+        price: 299.00,
+        image: 'assets/images/product1.jpg',
+        description: 'High-quality wireless headphones with noise cancellation and 20-hour battery life.'
+      },
+      {
+        id: 'p2',
+        name: 'Gaming Mouse',
+        price: 149.00,
+        image: 'assets/images/product2.jpg',
+        description: 'Ergonomic gaming mouse with adjustable DPI and RGB lighting.'
+      },
+      {
+        id: 'p3',
+        name: '4K Monitor',
+        price: 899.00,
+        image: 'assets/images/product3.jpg',
+        description: 'Stunning 27-inch 4K monitor with ultra-thin bezel and vivid color reproduction.'
+      },
+    ];
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+    function saveData() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    }
+
+    function addToCart(id) {
+      if (!cart.includes(id)) {
+        cart.push(id);
+        alert('Added to cart!');
+        saveData();
+      } else {
+        alert('Already in cart.');
+      }
+    }
+
+    function addToWishlist(id) {
+      if (!wishlist.includes(id)) {
+        wishlist.push(id);
+        alert('Added to wishlist!');
+        saveData();
+      } else {
+        alert('Already in wishlist.');
+      }
+    }
+
+    function renderProductDetail() {
+      const product = productList.find(p => p.id === productId);
+      const container = document.getElementById('productDetail');
+
+      if (!product) {
+        container.innerHTML = '<p class="text-red-600">Product not found.</p>';
+        return;
+      }
+
+      container.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" class="w-full md:w-1/2 h-64 object-cover rounded">
+        <div class="flex-1">
+          <h1 class="text-3xl font-bold mb-2">${product.name}</h1>
+          <p class="text-gray-700 mb-4">${product.description}</p>
+          <p class="text-blue-600 text-xl font-semibold mb-4">SAR ${product.price.toFixed(2)}</p>
+          <div class="flex space-x-3">
+            <button onclick="addToCart('${product.id}')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition">Add to Cart</button>
+            <button onclick="addToWishlist('${product.id}')" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded transition">Add to Wishlist</button>
+          </div>
+        </div>
+      `;
+    }
+
+    renderProductDetail();
+  </script>
+</body>
+</html>

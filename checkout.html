@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout</title>
+  <script src="js/main.js" defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<!-- Updated Navbar with Wishlist -->
+<nav class="bg-gray-800 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="index.html" class="text-white text-2xl font-semibold">E-Shop</a>
+      <ul class="flex space-x-4 text-white">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="wishlist.html">Wishlist</a></li> <!-- Wishlist Page Link -->
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+    <div class="container mx-auto px-4 py-10">
+    <h1 class="text-3xl font-bold text-center mb-8">Your Cart</h1>
+
+  
+    <div id="cart-container" class="space-y-6">
+      <!-- Cart items will go here -->
+    </div>
+
+    <div class="text-right mt-6">
+      <p class="text-xl font-semibold" id="total-price">Total: $0.00</p>
+    </div>
+
+    <div class="text-center mt-6">
+      <button class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition duration-200" onclick="proceedToCheckout()">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <script>
+    // Initialize cart from localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Product catalog
+    const productList = [
+      { id: 'p1', name: 'Wireless Headphones', price: 299.00, image: 'assets/images/product1.jpg' },
+      { id: 'p2', name: 'Gaming Mouse', price: 149.00, image: 'assets/images/product2.jpg' },
+      { id: 'p3', name: '4K Monitor', price: 899.00, image: 'assets/images/product3.jpg' }
+    ];
+
+    // Render cart items
+    function renderCart() {
+      const cartContainer = document.getElementById('cart-container');
+      const totalPriceElement = document.getElementById('total-price');
+      cartContainer.innerHTML = '';
+      let total = 0;
+
+      if (cart.length === 0) {
+        cartContainer.innerHTML = '<p class="text-center text-gray-600">Your cart is empty.</p>';
+        totalPriceElement.innerText = 'Total: $0.00';
+        return;
+      }
+
+      cart.forEach(itemId => {
+        const product = productList.find(p => p.id === itemId);
+        if (product) {
+          total += product.price;
+          const productCard = `
+            <div class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
+              <div class="flex items-center space-x-4">
+                <img src="${product.image}" alt="${product.name}" class="w-16 h-16 object-cover rounded-md">
+                <div>
+                  <h2 class="text-lg font-semibold">${product.name}</h2>
+                  <p class="text-sm text-gray-600">$${product.price.toFixed(2)}</p>
+                </div>
+              </div>
+              <button class="bg-red-500 text-white px-4 py-2 rounded-md" onclick="removeFromCart('${product.id}')">Remove</button>
+            </div>
+          `;
+          cartContainer.innerHTML += productCard;
+        }
+      });
+
+      totalPriceElement.innerText = `Total: $${total.toFixed(2)}`;
+    }
+
+    // Remove product from cart
+    function removeFromCart(id) {
+      cart = cart.filter(itemId => itemId !== id);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    // Proceed to checkout (redirect to checkout confirmation page)
+    function proceedToCheckout() {
+      alert('Proceeding to checkout...');
+      // You can add more logic here to handle checkout details
+      // Redirect to confirmation page or another section of the website
+    }
+
+    // Initial render
+    renderCart();
+  </script>
+</body>
+</html>

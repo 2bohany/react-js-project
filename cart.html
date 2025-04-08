@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ElectroStore - Cart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <!-- Navbar -->
+  <!-- <nav class="bg-white shadow mb-6">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-2xl font-bold text-gray-800 hover:text-blue-600">ElectroStore</a>
+      <div class="space-x-6 hidden md:flex">
+        <a href="index.html" class="text-gray-700 hover:text-blue-600">Home</a>
+        <a href="products.html" class="text-gray-700 hover:text-blue-600">Products</a>
+        <a href="wishlist.html" class="text-gray-700 hover:text-blue-600">Wishlist</a>
+        <a href="login.html" class="text-gray-700 hover:text-blue-600">Login</a>
+      </div>
+    </div>
+  </nav> -->
+<!-- Updated Navbar with Wishlist -->
+<!-- <nav class="bg-gray-800 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="index.html" class="text-white text-2xl font-semibold">E-Shop</a>
+      <ul class="flex space-x-4 text-white">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="wishlist.html">Wishlist</a></li> <!-- Wishlist Page Link -->
+        <!-- <li><a href="dashboard.html">Dashboard</a></li> 
+        <li><a href="profile.html">Profile</a></li>
+        
+      </ul>
+    </div>
+  </nav> -->
+  
+  
+
+  <nav class="bg-gray-800 p-4">
+    <div class="container mx-auto flex flex-wrap items-center justify-between">
+      
+      <!-- Logo -->
+      <a href="index.html" class="text-white text-2xl font-bold">E-Shop</a>
+      
+      <!-- Navigation Links -->
+      <ul class="flex flex-wrap items-center space-x-4 text-white">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="wishlist.html">Wishlist</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
+      </ul>
+  
+      <!-- Search Bar -->
+      <form action="search.html" method="GET" class="mt-2 sm:mt-0">
+        <div class="flex items-center">
+          <input
+            type="text"
+            name="q"
+            placeholder="Search products..."
+            class="px-3 py-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          />
+          <button
+            type="submit"
+            class="bg-yellow-400 text-gray-900 px-4 py-2 rounded-r-md font-semibold hover:bg-yellow-300 transition"
+          >
+            Search
+          </button>
+        </div>
+      </form>
+    </div>
+  </nav>
+  
+
+
+
+
+
+
+
+  <!-- Cart Content -->
+  <div class="container mx-auto px-4">
+    <h1 class="text-3xl font-bold mb-6">Your Cart</h1>
+    <div id="cartContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Product cards will be injected here -->
+    </div>
+
+    <div class="mt-10 text-right">
+      <h2 class="text-xl font-semibold">Total: <span id="cartTotal">SAR 0.00</span></h2>
+    </div>
+  </div>
+
+
+  <div class="text-center mt-6">
+    <a href="checkout.html">
+      <button class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition duration-200">
+        Proceed to Checkout
+      </button>
+    </a>
+  </div>
+  
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-6 text-center mt-12">
+    <div class="container mx-auto px-4">
+      <p>&copy; 2025 ElectroStore. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const productList = [
+      {
+        id: 'p1',
+        name: 'Wireless Headphones',
+        price: 299.00,
+        image: 'assets/images/product1.jpg'
+      },
+      {
+        id: 'p2',
+        name: 'Gaming Mouse',
+        price: 149.00,
+        image: 'assets/images/product2.jpg'
+      },
+      {
+        id: 'p3',
+        name: '4K Monitor',
+        price: 899.00,
+        image: 'assets/images/product3.jpg'
+      },
+    ];
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function renderCart() {
+      const cartContainer = document.getElementById('cartContainer');
+      cartContainer.innerHTML = '';
+      let total = 0;
+
+      if (cart.length === 0) {
+        cartContainer.innerHTML = '<p class="text-gray-500">Your cart is empty.</p>';
+        document.getElementById('cartTotal').textContent = 'SAR 0.00';
+        return;
+      }
+
+      cart.forEach(productId => {
+        const product = productList.find(p => p.id === productId);
+        if (product) {
+          total += product.price;
+          const card = document.createElement('div');
+          card.className = 'bg-white rounded shadow p-4';
+          card.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded mb-4">
+            <h3 class="text-lg font-bold">${product.name}</h3>
+            <p class="text-blue-600 font-semibold mb-2">SAR ${product.price.toFixed(2)}</p>
+            <button onclick="removeFromCart('${product.id}')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition">Remove</button>
+          `;
+          cartContainer.appendChild(card);
+        }
+      });
+
+      document.getElementById('cartTotal').textContent = `SAR ${total.toFixed(2)}`;
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(pid => pid !== id);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

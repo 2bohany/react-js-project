@@ -1,0 +1,80 @@
+<!-- profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+  <!-- Navbar -->
+  <!-- <nav class="bg-gray-800 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="index.html" class="text-white text-2xl font-semibold">E-Shop</a>
+      <ul class="flex space-x-4 text-white">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="profile.html">Profile</a></li> <!-- Profile link -->
+      <!-- </ul> 
+    </div>
+  </nav> -->
+<!-- Updated Navbar with Wishlist -->
+<nav class="bg-gray-800 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="index.html" class="text-white text-2xl font-semibold">E-Shop</a>
+      <ul class="flex space-x-4 text-white">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="wishlist.html">Wishlist</a></li> <!-- Wishlist Page Link -->
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  
+  <!-- Profile Section -->
+  <div class="container mx-auto px-4 py-10">
+    <h1 class="text-3xl font-bold text-center mb-8">Your Profile</h1>
+
+    <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+      <div class="flex items-center space-x-4 mb-6">
+        <img src="https://via.placeholder.com/150" alt="User Avatar" class="w-24 h-24 rounded-full border">
+        <div>
+          <h2 class="text-xl font-semibold">John Doe</h2>
+          <p class="text-sm text-gray-600">johndoe@example.com</p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label for="name" class="text-sm font-semibold">Name</label>
+          <input type="text" id="name" value="John Doe" class="w-full p-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+          <label for="email" class="text-sm font-semibold">Email</label>
+          <input type="email" id="email" value="johndoe@example.com" class="w-full p-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+          <label for="phone" class="text-sm font-semibold">Phone</label>
+          <input type="tel" id="phone" value="+1 234 567 890" class="w-full p-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+          <button class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition duration-200 w-full">
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
